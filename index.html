@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POSEIDON — War of the Oceans</title>
+<meta name="description" content="POSEIDON is a cinematic symphonic power metal universe created by Giorgio Croco. Album: War of the Oceans.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--ocean:#060e1a;--deep:#0a1628;--mid:#0d1f3c;--fire:#ff6b1a;--fire-dim:#c44d0f;--blue:#00aaff;--blue-dim:#0077bb;--silver:#c8d8e8;--muted:#5a7a9a;--white:#f0f4f8;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--ocean);color:var(--white);font-family:'Crimson Pro',Georgia,serif;font-size:18px;line-height:1.7;overflow-x:hidden;}
+#ocean-canvas{position:fixed;inset:0;z-index:-1;pointer-events:none;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,rgba(6,14,26,0.95) 0%,transparent 100%);backdrop-filter:blur(10px);}
+.nav-logo-img{height:36px;width:auto;display:block;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s ease;}
+.nav-links a:hover{color:var(--white);}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding:0 2rem 4rem 2rem;position:relative;z-index:1;background-image:url('FOTO_BAND.jpeg');background-size:cover;background-position:center 60px;background-repeat:no-repeat;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,14,26,0.2) 0%,rgba(6,14,26,0.1) 40%,rgba(6,14,26,0.7) 80%,rgba(6,14,26,0.95) 100%);z-index:1;}
+.hero-content{position:relative;z-index:2;max-width:900px;}
+.hero-subtitle{font-family:'Cinzel',serif;font-size:clamp(0.8rem,2.5vw,1.1rem);letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);margin-bottom:2.5rem;}
+.hero-tagline{font-size:clamp(1.1rem,2.5vw,1.4rem);font-style:italic;color:var(--silver);max-width:600px;margin:0 auto 3rem;font-weight:300;}
+.hero-cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.btn-primary{display:inline-block;padding:0.9rem 2.5rem;background:var(--fire);color:#fff;font-family:'Cinzel',serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.3s ease;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+.btn-primary:hover{background:var(--fire-dim);transform:translateY(-2px);}
+.btn-secondary{display:inline-block;padding:0.9rem 2.5rem;background:transparent;color:var(--blue);font-family:'Cinzel',serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;border:1px solid var(--blue-dim);transition:all 0.3s ease;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+.btn-secondary:hover{background:rgba(0,170,255,0.1);transform:translateY(-2px);}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--blue-dim),transparent);position:relative;z-index:2;}
+.section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--fire);margin-bottom:1rem;text-shadow:0 0 20px rgba(255,107,26,0.5);}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--white);line-height:1.2;margin-bottom:2rem;}
+.video-section{padding:4rem 2rem;background:transparent;position:relative;z-index:2;}
+.video-inner{max-width:900px;margin:0 auto;text-align:center;}
+.video-wrapper{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border:1px solid rgba(0,170,255,0.2);box-shadow:0 0 60px rgba(0,170,255,0.1);margin-top:2rem;}
+.video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;}
+.story-section{background:linear-gradient(180deg,rgba(6,14,26,0.92) 0%,rgba(8,18,35,0.95) 50%,rgba(6,14,26,0.92) 100%);padding:6rem 2rem;position:relative;z-index:2;}
+.story-inner{max-width:800px;margin:0 auto;}
+.story-text{font-size:1.15rem;color:var(--silver);font-weight:300;line-height:1.9;margin-bottom:1.5rem;}
+.story-text strong{color:var(--white);font-weight:600;}
+.story-quote{border-left:3px solid var(--fire);padding:1.5rem 2rem;margin:3rem 0;font-style:italic;font-size:1.3rem;color:var(--white);font-weight:300;line-height:1.6;background:rgba(255,107,26,0.05);}
+.characters-section{padding:6rem 2rem;position:relative;z-index:2;}
+.characters-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;margin-top:3rem;max-width:1100px;margin-left:auto;margin-right:auto;}
+.character-card{background:linear-gradient(135deg,var(--deep),var(--mid));border:1px solid rgba(0,170,255,0.1);text-align:center;transition:all 0.3s ease;overflow:hidden;}
+.character-card:hover{border-color:rgba(0,170,255,0.3);transform:translateY(-4px);}
+.member-photo{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block;filter:grayscale(20%) contrast(1.1);transition:filter 0.3s ease;}
+.character-card:hover .member-photo{filter:grayscale(0%) contrast(1.15);}
+.character-card-info{padding:1rem 1rem 1.5rem;}
+.character-name{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--white);margin-bottom:0.4rem;}
+.character-role{font-size:0.8rem;color:var(--fire);font-family:'Cinzel',serif;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;}
+.character-desc{font-size:0.85rem;color:var(--muted);line-height:1.5;}
+.tracklist-section{background:rgba(8,18,35,0.9);padding:6rem 2rem;position:relative;z-index:2;backdrop-filter:blur(4px);}
+.tracklist-inner{max-width:700px;margin:0 auto;}
+.track{display:flex;flex-direction:column;gap:0.5rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.track-top{display:flex;align-items:baseline;gap:1.5rem;width:100%;}
+.track-num{font-family:'Cinzel',serif;font-size:0.75rem;color:var(--muted);width:24px;flex-shrink:0;}
+.track-title{font-size:1rem;color:var(--silver);flex:1;}
+.track-badge{font-size:0.7rem;padding:2px 8px;border-radius:99px;font-family:'Cinzel',serif;}
+.badge-inst{background:rgba(0,170,255,0.15);color:var(--blue);}
+.badge-bonus{background:rgba(255,107,26,0.15);color:var(--fire);}
+.badge-single{background:rgba(255,255,255,0.08);color:var(--silver);}
+.track-player{width:100%;display:flex;align-items:center;gap:1rem;padding:0.25rem 0 0.25rem 2.5rem;}
+.track-player audio{flex:1;height:28px;opacity:0.8;filter:invert(1) sepia(1) saturate(2) hue-rotate(180deg);}
+.btn-stream{font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--fire);border:1px solid rgba(255,107,26,0.3);padding:4px 12px;text-decoration:none;border-radius:99px;white-space:nowrap;transition:all 0.2s ease;flex-shrink:0;}
+.btn-stream:hover{background:rgba(255,107,26,0.1);}
+.aenigma-section{padding:6rem 2rem;position:relative;z-index:2;}
+.aenigma-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:420px 1fr;gap:5rem;align-items:start;}
+.aenigma-photo-col{display:flex;flex-direction:column;}
+.aenigma-photo{width:100%;display:block;border:1px solid rgba(0,170,255,0.25);border-bottom:none;box-shadow:0 0 80px rgba(0,170,255,0.12);}
+.aenigma-name-block{text-align:center;padding:1.5rem 1rem;border:1px solid rgba(0,170,255,0.25);border-top:none;background:rgba(6,14,26,0.9);}
+.aenigma-name{font-family:'Cinzel',serif;font-size:2rem;font-weight:700;color:var(--white);letter-spacing:0.3em;text-shadow:0 0 30px rgba(0,170,255,0.6);margin-bottom:6px;}
+.aenigma-title-text{font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--fire);}
+.aenigma-bio p{font-size:1.05rem;color:var(--silver);font-weight:300;line-height:1.9;margin-bottom:1.25rem;}
+.aenigma-bio strong{color:var(--white);font-weight:600;}
+.aenigma-quote{border-left:3px solid var(--blue);padding:1rem 1.5rem;margin:2rem 0;font-style:italic;font-size:1.15rem;color:var(--white);font-weight:300;line-height:1.6;background:rgba(0,170,255,0.05);}
+.manifesto-section{background:linear-gradient(135deg,rgba(10,22,40,0.95) 0%,rgba(15,30,53,0.95) 100%);padding:6rem 2rem;text-align:center;position:relative;z-index:2;}
+.manifesto-inner{max-width:700px;margin:0 auto;}
+.manifesto-text{font-size:clamp(1.1rem,2.5vw,1.5rem);font-style:italic;color:var(--silver);font-weight:300;line-height:1.8;margin-bottom:2rem;}
+.manifesto-closing{font-family:'Cinzel',serif;font-size:clamp(1rem,2vw,1.3rem);color:var(--white);font-weight:600;letter-spacing:0.05em;}
+.social-section{padding:5rem 2rem;text-align:center;border-top:1px solid rgba(255,255,255,0.05);position:relative;z-index:2;}
+.social-links{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-top:2rem;}
+.social-link{font-family:'Cinzel',serif;font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:0.75rem 1.5rem;border:1px solid rgba(255,255,255,0.1);transition:all 0.3s ease;}
+.social-link:hover{color:var(--white);border-color:var(--blue-dim);background:rgba(0,170,255,0.05);}
+footer{padding:2rem;text-align:center;font-size:0.8rem;color:var(--muted);font-family:'Cinzel',serif;letter-spacing:0.1em;border-top:1px solid rgba(255,255,255,0.05);position:relative;z-index:2;}
+@media(max-width:800px){.aenigma-inner{grid-template-columns:1fr;gap:2rem;}.nav-links{display:none;}.characters-grid{grid-template-columns:repeat(2,1fr);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+<canvas id="ocean-canvas"></canvas>
+<nav>
+  <a href="#"><img src="POSEIDON_LOGO_transparent.png" alt="POSEIDON" class="nav-logo-img"></a>
+  <ul class="nav-links">
+    <li><a href="#video">Video</a></li>
+    <li><a href="#story">Story</a></li>
+    <li><a href="#characters">Characters</a></li>
+    <li><a href="#album">Album</a></li>
+    <li><a href="#bio">About</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-subtitle">War of the Oceans &mdash; The Debut Album</p>
+    <p class="hero-tagline"><em>They were imagined. One day, they may become real.</em></p>
+    <div class="hero-cta">
+      <a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="btn-primary">Watch on YouTube</a>
+      <a href="#story" class="btn-secondary">Discover the Story</a>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="video-section" id="video">
+  <div class="video-inner">
+    <p class="section-label">Official Music Video</p>
+    <h2 class="section-title">Nuclear Flame on the Water</h2>
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube-nocookie.com/embed/qfmM2Re_LPY?rel=0&modestbranding=1" title="POSEIDON" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="story-section" id="story">
+  <div class="story-inner">
+    <p class="section-label">The Concept</p>
+    <h2 class="section-title">War of the Oceans</h2>
+    <p class="story-text">For centuries, the ocean has endured. Pollution. Overfishing. Oil spills. The slow erasure of entire species. The deep has watched, and remembered every wound.</p>
+    <p class="story-text">Then came the nuclear attack. A weapon aimed at the sea itself. It could not silence what the deep carries.</p>
+    <div class="story-quote">"You hit first. But the ocean struck back."</div>
+    <p class="story-text"><strong>War of the Oceans</strong> is a 14-track concept album that follows the awakening of Poseidon and the ocean's mythological creatures &mdash; from the first tremor in the deep, through war, and finally the rebirth of a world returned to nature's dominion.</p>
+    <p class="story-text">It is a story of consequence. Of memory. Of a world that forgot the ocean does not forget.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="characters-section" id="characters">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-label">The Band</p>
+    <h2 class="section-title">Five Characters. One Ocean at War.</h2>
+  </div>
+  <div class="characters-grid">
+    <div class="character-card">
+      <img src="adrian.png" alt="Adrian Vale" class="member-photo">
+      <div class="character-card-info">
+        <div class="character-name">Adrian Vale</div>
+        <div class="character-role">Lead Vocals</div>
+        <div class="character-desc">The voice of the deep. His word is law beneath the waves.</div>
+      </div>
+    </div>
+    <div class="character-card">
+      <img src="elias.png" alt="Carl Rourke" class="member-photo">
+      <div class="character-card-info">
+        <div class="character-name">Carl Rourke</div>
+        <div class="character-role">Lead Guitar</div>
+        <div class="character-desc">Commander of the shark legions. If you hear his riff &mdash; you already swam too far.</div>
+      </div>
+    </div>
+    <div class="character-card">
+      <img src="melissa.png" alt="Melissa Conti" class="member-photo">
+      <div class="character-card-info">
+        <div class="character-name">Melissa Conti</div>
+        <div class="character-role">Keys &amp; Orchestration</div>
+        <div class="character-desc">The Siren. She sings for the sun to swim down &mdash; and for peace to come.</div>
+      </div>
+    </div>
+    <div class="character-card">
+      <img src="carl.png" alt="Elias Vorn" class="member-photo">
+      <div class="character-card-info">
+        <div class="character-name">Elias Vorn</div>
+        <div class="character-role">Bass</div>
+        <div class="character-desc">The Kraken. Ancient. Unchained. When he is released, the whole sky snaps.</div>
+      </div>
+    </div>
+    <div class="character-card">
+      <img src="medusa.png" alt="Core-Medusa" class="member-photo">
+      <div class="character-card-info">
+        <div class="character-name">Core-Medusa</div>
+        <div class="character-role">Drums</div>
+        <div class="character-desc">White eyes. The rhythm of the abyss made flesh. She sees through you.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="tracklist-section" id="album">
+  <div class="tracklist-inner">
+    <p class="section-label">Full Album</p>
+    <h2 class="section-title">War of the Oceans &mdash; 14 Tracks &middot; 2026</h2>
+    <div class="track"><div class="track-top"><span class="track-num">01</span><span class="track-title">Trident in the Tides</span></div><div class="track-player"><audio controls preload="none"><source src="audio/01_trident.mp3" type="audio/mpeg"></audio><a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="btn-stream">&#9654; YouTube</a></div></div>
+    <div class="track"><div class="track-top"><span class="track-num">02</span><span class="track-title">Oceans At War</span></div><div class="track-player"><audio controls preload="none"><source src="audio/02_oceans_at_war.mp3" type="audio/mpeg"></audio><a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="btn-stream">&#9654; YouTube</a></div></div>
+    <div class="track"><div class="track-top"><span class="track-num">03</span><span class="track-title">Rise Rise Rise</span></div><div class="track-player"><audio controls preload="none"><source src="audio/03_rise_rise_rise.mp3" type="audio/mpeg"></audio><a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="btn-stream">&#9654; YouTube</a></div></div>
+    <div class="track"><div class="track-top"><span class="track-num">04</span><span class="track-title">So They Sing for the Sun to Swim Down</span></div><div class="track-player"><audio controls preload="none"><source src="audio/04_so_they_sing.mp3" type="audio/mpeg"></audio><a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="btn-stream">&#9654; YouTube</a></div></div>
+    <div class="track"><div class="track-top"><span class="track-num">05</span><span class="track-title">Poseidon's Giant Tsunami</span></div><div class="track-player"><audio controls preload="none"><source src="audio/05_giant_tsunami.mp3" type="audio/mpeg"></audio><a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="btn-stream">&#9654; YouTube</a></div></div>
+    <div class="track"><div class="track-top"><span class="track-num">06</span><span class="track-title">Sea Dragons</span></div><div class="track-player"><audio controls preload="none"><source src="audio/06_sea_dragons.mp3" type="audio/mpeg"></audio><a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="btn-stream">&#9654; YouTube</a></div></div>
+    <div class="track"><div class="track-top"><span class="track-num">07</span><span class="track-title">Where the Ocean Ends</span></div><div class="track-player"><audio controls preload="none"><source src="audio/07_where_ocean_ends.mp3" type="audio/mpeg"></audio><a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="btn-stream">&#9654; YouTube</a></div></div>
+    <div class="track"><div class="track-top"><span class="track-num">08</span><span class="track-title">The Power of Poseidon's Trident</span></div><div class="track-player"><audio controls preload="none"><source src="audio/08_power_trident.mp3" type="audio/mpeg"></audio><a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="btn-stream">&#9654; YouTube</a></div></div>
+    <div class="track"><div class="track-top"><span class="track-num">09</span><span class="track-title">Poseidon and the Army of Sharks</span></div><div class="track-player"><audio controls preload="none"><source src="audio/09_army_of_sharks.mp3" type="audio/mpeg"></audio><a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="btn-stream">&#9654; YouTube</a></div></div>
+    <div class="track"><div class="track-top"><span class="track-num">10</span><span class="track-title">Nuclear Flame on the Water <span class="track-badge badge-single">Single</span></span></div><div class="track-player"><audio controls preload="none"><source src="audio/10_nuclear_flame.mp3" type="audio/mpeg"></audio><a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="btn-stream">&#9654; YouTube</a></div></div>
+    <div class="track"><div class="track-top"><span class="track-num">11</span><span class="track-title">Release the Kraken</span></div><div class="track-player"><audio controls preload="none"><source src="audio/11_release_kraken.mp3" type="audio/mpeg"></audio><a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="btn-stream">&#9654; YouTube</a></div></div>
+    <div class="track"><div class="track-top"><span class="track-num">12</span><span class="track-title">Reign of the Oceans</span></div><div class="track-player"><audio controls preload="none"><source src="audio/12_reign_oceans.mp3" type="audio/mpeg"></audio><a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="btn-stream">&#9654; YouTube</a></div></div>
+    <div class="track"><div class="track-top"><span class="track-num">13</span><span class="track-title">To the New Era <span class="track-badge badge-inst">Instrumental</span></span></div><div class="track-player"><audio controls preload="none"><source src="audio/13_to_new_era.mp3" type="audio/mpeg"></audio><a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="btn-stream">&#9654; YouTube</a></div></div>
+    <div class="track"><div class="track-top"><span class="track-num">14</span><span class="track-title">Nuclear Finale <span class="track-badge badge-bonus">Bonus</span> <span class="track-badge badge-inst">Instrumental</span></span></div><div class="track-player"><audio controls preload="none"><source src="audio/14_nuclear_finale.mp3" type="audio/mpeg"></audio><a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="btn-stream">&#9654; YouTube</a></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="aenigma-section" id="bio">
+  <div class="aenigma-inner">
+    <div class="aenigma-photo-col">
+      <img src="AENIGMA.jpg" alt="AENIGMA" class="aenigma-photo">
+      <div class="aenigma-name-block">
+        <div class="aenigma-name">AENIGMA</div>
+        <div class="aenigma-title-text">Giorgio Croco &middot; Creator of POSEIDON</div>
+      </div>
+    </div>
+    <div class="aenigma-bio">
+      <p class="section-label">The Creator</p>
+      <h2 class="section-title">Behind POSEIDON,<br>one mind. One vision.</h2>
+      <p>Some stories wait decades to be told. Giorgio Croco's is one of them.</p>
+      <p>Milan, 1996. Talent scout at <strong>Warner Chappell Music Italy</strong>. Registered SIAE composer under the alias <em>Jhopolaris</em>. Two editions of <strong>Sanremo</strong>. He brought them Rhapsody. They said no. Years later, Rhapsody achieved worldwide success.</p>
+      <p>That closed door changed everything. Los Angeles &mdash; a whisky with <strong>Lemmy Kilmister</strong> at the Rainbow Bar &amp; Grill. Conversations with Ronnie James Dio, Vince Neil, Tommy Lee. Moscow &mdash; <strong>Space Moscow</strong>, 9,000 sqm, Ti&euml;sto, Steve Aoki. Back in Italy &mdash; professional drone videographer, founder of <strong>Lido Wave</strong>.</p>
+      <div class="aenigma-quote">&ldquo;The music was always inside me. I just needed the right instrument to let it out.&rdquo;</div>
+      <p>When AI platforms arrived with true creative customisation, something clicked. The music Giorgio had kept silent for thirty years began to surface. <strong>POSEIDON</strong> was born.</p>
+      <p>POSEIDON is not artificial intelligence making music.<br><strong>It is a musician who finally found a way to make his music.</strong></p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="manifesto-section">
+  <div class="manifesto-inner">
+    <p class="section-label">The Vision</p>
+    <p class="manifesto-text">"AI is not the enemy of the creative professional. It is the tool that makes the impossible possible &mdash; for those who already have the vision, the experience, and the passion. POSEIDON is proof."</p>
+    <p class="manifesto-closing">&mdash; AENIGMA &middot; Giorgio Croco</p>
+  </div>
+</div>
+
+<div class="social-section">
+  <p class="section-label">Follow the Ocean</p>
+  <div class="social-links">
+    <a href="https://www.youtube.com/@poseidonbandofficial" target="_blank" class="social-link">YouTube</a>
+    <a href="https://www.instagram.com" target="_blank" class="social-link">Instagram</a>
+    <a href="https://www.tiktok.com" target="_blank" class="social-link">TikTok</a>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 POSEIDON &mdash; War of the Oceans &middot; Created by Giorgio Croco &middot; All Rights Reserved</p>
+</footer>
+
+<script>
+const canvas=document.getElementById('ocean-canvas');
+const ctx=canvas.getContext('2d');
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+const particles=[];
+class Particle{constructor(){this.reset();}reset(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*2+0.3;this.speedY=-(Math.random()*0.3+0.05);this.speedX=(Math.random()-0.5)*0.1;this.life=0;this.maxLife=Math.random()*300+200;this.hue=Math.random()<0.7?Math.random()*40+180:Math.random()*20+20;this.pulse=Math.random()*Math.PI*2;this.pulseSpeed=Math.random()*0.02+0.005;}update(){this.life++;this.y+=this.speedY;this.x+=this.speedX;this.pulse+=this.pulseSpeed;if(this.life>this.maxLife||this.y<-10)this.reset();}draw(){const p=this.life/this.maxLife;const a=p<0.1?p*10:p>0.8?(1-p)*5:1;const ps=this.size*(1+Math.sin(this.pulse)*0.3);const g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,ps*4);g.addColorStop(0,`hsla(${this.hue},80%,60%,${a*0.9})`);g.addColorStop(1,`hsla(${this.hue},80%,60%,0)`);ctx.beginPath();ctx.arc(this.x,this.y,ps*4,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();}}
+for(let i=0;i<150;i++){const p=new Particle();p.life=Math.random()*p.maxLife;particles.push(p);}
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);const bg=ctx.createLinearGradient(0,0,0,canvas.height);bg.addColorStop(0,'rgba(4,8,16,0.85)');bg.addColorStop(1,'rgba(5,10,20,0.92)');ctx.fillStyle=bg;ctx.fillRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animate);}
+animate();
+</script>
+</body>
+</html>
